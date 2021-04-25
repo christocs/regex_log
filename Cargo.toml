@@ -3,6 +3,7 @@ name = "tail_regex"
 version = "0.1.0"
 authors = ["Christo Stephenson <code@christo.dev>"]
 edition = "2018"
+license-file = "LICENSE.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
