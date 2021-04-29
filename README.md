@@ -23,3 +23,6 @@ Watch logs with regular expressions for pattern matching!
 
 # Build Steps
 1. `cargo build`
+
+# API/CLI Stability
+This project will not have a stable API or CLI before a 1.0 release. Expect to change any code relying on this crate/program when updating it.
