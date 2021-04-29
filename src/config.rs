@@ -20,8 +20,9 @@ pub enum Action {
     SetForeground(Color),
     // set background color
     SetBackground(Color),
-    Bold(bool),
     // set bold on/off
+    Bold(bool),
+    // set italic on/off
     Italic(bool),
     // set underline on/off
     Underline(bool),
