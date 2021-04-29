@@ -1,9 +1,60 @@
+use regex::Regex;
+use std::collections::HashMap;
 use std::io::Write;
 
-pub struct Config {}
+#[derive(Debug)]
+pub enum Color {
+    Black,
+    Blue,
+    Green,
+    Red,
+    Cyan,
+    Magenta,
+    Yellow,
+    White,
+}
 
 #[derive(Debug)]
-pub enum Err {}
+pub enum Action {
+    // set foreground color
+    SetForeground(Color),
+    // set background color
+    SetBackground(Color),
+    Bold(bool),
+    // set bold on/off
+    Italic(bool),
+    // set underline on/off
+    Underline(bool),
+    // set coloring to brighter colors
+    IntenseColor(bool),
+    // reset to "default"
+    Reset,
+}
+
+pub type Actions = Vec<Action>;
+
+#[derive(Debug)]
+pub struct Rule {
+    // regex rule to test
+    regex: Regex,
+    // actions to apply to each regex group in order
+    group_actions: Vec<Actions>,
+    // actions to apply to the whole string after group actions
+    line_actions: Actions,
+}
+
+pub type Rules = Vec<Rule>;
+pub type Profiles = HashMap<String, Rules>;
+
+#[derive(Debug)]
+pub struct Config {
+    global: Rules,
+    default: Rules,
+    profiles: Profiles,
+}
+
+#[derive(Debug)]
+pub enum ConfigErr {}
 
 #[derive(Debug)]
 pub enum CreateFileErr {
@@ -72,7 +123,11 @@ impl Config {
         Ok(())
     }
 
-    pub fn read(path: std::path::PathBuf) -> Result<Self, Err> {
-        Ok(Config {})
+    pub fn read(path: std::path::PathBuf) -> Result<Self, ConfigErr> {
+        Ok(Config {
+            global: Rules::new(),
+            default: Rules::new(),
+            profiles: Profiles::new(),
+        })
     }
 }
